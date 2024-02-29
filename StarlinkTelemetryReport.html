@@ -4,21 +4,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Starlink Telemetry</title>
-    <style>
-      body { font-family: Arial, sans-serif; }
-      table, th, td { border: 1px solid black; border-collapse: collapse; }
-      th, td { padding: 8px; text-align: left; }
-      button { padding: 10px; font-size: 16px; cursor: pointer; }
-    </style>
+    <link rel="stylesheet" href="style.css">
   </head>
   <body>
 
     <h2>Starlink Telemetry</h2>
 
-    <button onclick="runReport()">Run Report</button>
+    <div id="launchDates">
+      <p>Select a launch date:</p>
+      <ul>
+        <!-- Launch dates will be dynamically added here -->
+      </ul>
+    </div>
+
+    <button id="runReportButton">Run Report</button>
+    <button id="clearReportButton">Clear Report</button>
 
     <div id="dataDisplay">
-      <table id="dataTable" style="width:100%; margin-top:20px;">
+      <table id="dataTable" style="width:50%; margin-top:20px;">
         <thead>
           <tr>
             <th>ID</th>
@@ -32,35 +35,7 @@
       </table>
     </div>
 
-    <script>
-      function runReport() {
-        const reportId = '1234'; // TODO: This is a test id, modify later
-
-        fetch(`http://localhost:3000/getReport?id=${reportId}`) // Make sure to use the correct port
-          .then(response => response.json())
-          .then(data => {
-            updateTable([data]); // Wrap data in an array if it's a single object
-          })
-          .catch(error => console.error('Error:', error));
-      }
-
-      function updateTable(data) {
-        const table = document.getElementById('dataTable').getElementsByTagName('tbody')[0];
-        table.innerHTML = ''; // Clear existing table rows
-
-        data.forEach(item => {
-          let row = table.insertRow();
-          let cell1 = row.insertCell(0);
-          let cell2 = row.insertCell(1);
-          let cell3 = row.insertCell(2);
-          // Populate cells
-          cell1.textContent = item.id;
-          cell2.textContent = item.name;
-          cell3.textContent = item.status;
-        });
-      }
-    </script>
-
+    <script src="script.js"></script>
 
   </body>
 </html>
