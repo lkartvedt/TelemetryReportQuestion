@@ -33,31 +33,34 @@
     </div>
 
     <script>
-    function runReport() {
-      fetch('API_ENDPOINT')
-        .then(response => response.json())
-        .then(data => {
-          updateTable(data);
-        })
-        .catch(error => console.error('Error:', error));
-    }
+      function runReport() {
+        const reportId = '1234'; // TODO: This is a test id, modify later
 
-    function updateTable(data) {
-      const table = document.getElementById('dataTable').getElementsByTagName('tbody')[0];
-      table.innerHTML = ''; 
+        fetch(`http://localhost:3000/getReport?id=${reportId}`) // Make sure to use the correct port
+          .then(response => response.json())
+          .then(data => {
+            updateTable([data]); // Wrap data in an array if it's a single object
+          })
+          .catch(error => console.error('Error:', error));
+      }
 
-      data.forEach(item => {
-        let row = table.insertRow();
-        let cell1 = row.insertCell(0);
-        let cell2 = row.insertCell(1);
-        let cell3 = row.insertCell(2);
-        // Populate cells
-        cell1.textContent = item.id;
-        cell2.textContent = item.name;
-        cell3.textContent = item.status;
-      });
-    }
+      function updateTable(data) {
+        const table = document.getElementById('dataTable').getElementsByTagName('tbody')[0];
+        table.innerHTML = ''; // Clear existing table rows
+
+        data.forEach(item => {
+          let row = table.insertRow();
+          let cell1 = row.insertCell(0);
+          let cell2 = row.insertCell(1);
+          let cell3 = row.insertCell(2);
+          // Populate cells
+          cell1.textContent = item.id;
+          cell2.textContent = item.name;
+          cell3.textContent = item.status;
+        });
+      }
     </script>
-    
+
+
   </body>
 </html>

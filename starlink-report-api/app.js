@@ -3,6 +3,9 @@ const { exec } = require('child_process');
 const app = express();
 const port = 3000;
 
+const cors = require('cors');
+app.use(cors()); // TODO: This will allow all origins. For "prod", configure to allow only specific origins
+
 app.get('/getReport', (req, res) => {
   const { id } = req.query; // Get id from query parameters
 
