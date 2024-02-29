@@ -1,30 +1,53 @@
 const express = require('express');
 const { exec } = require('child_process');
-const app = express();
-const port = 3000;
-
+const { promisify } = require('util');
 const cors = require('cors');
-app.use(cors()); // TODO: This will allow all origins. For "prod", configure to allow only specific origins
+const rateLimit = require('express-rate-limit');
+const morgan = require('morgan');
+require('dotenv').config(); // Load env variables from file
 
-app.get('/getReport', (req, res) => {
-  const { id } = req.query; // Get id from query parameters
+const execAsync = promisify(exec);
+const app = express();
+const port = process.env.PORT || 3000; // Use env variable for port, default is 3000
 
-  exec(`python3 generateReport.py ${id}`, (error, stdout, stderr) => {
-    if (error) {
-      console.error(`exec error: ${error}`);
-      return res.status(500).send('Error executing Python script');
+// CORS options for production
+const corsOptions = {
+  origin: process.env.ALLOWED_ORIGIN || '*', // Specify allowed origin or allow all
+};
+app.use(cors(corsOptions));
+
+// Rate limiting
+const limiter = rateLimit({
+  windowMs: 60 * 1000,
+  max: 200, // Limit to 500 requests per minute
+});
+app.use(limiter);
+
+// HTTP request logging
+app.use(morgan('combined'));
+
+app.get('/getReport', async (req, res) => {
+  const { id } = req.query; // Get id from query params
+
+  // Input validation with regex
+  if (!id || typeof id !== 'string' || !id.match(/^\d+$/)) {
+    return res.status(400).send('Invalid ID provided.');
+  }
+
+  try {
+    const { stdout } = await execAsync(`python3 generateReport.py ${id}`);
+    const data = JSON.parse(stdout);
+    res.json(data);
+  } catch (error) {
+    console.error('Error:', error);
+    if (error.code === 'ENOENT') {
+      return res.status(500).send('Error executing Python script. Make sure it exists and is executable.');
     }
-
-    try {
-      const data = JSON.parse(stdout);
-      res.json(data);
-    } catch (parseError) {
-      console.error(`Error parsing script output: ${parseError}`);
-      res.status(500).send('Error parsing script output');
-    }
-  });
+    return res.status(500).send('Server error occurred.');
+  }
 });
 
 app.listen(port, () => {
   console.log(`Starlink Telemetry Report API running at http://localhost:${port}`);
 });
+
