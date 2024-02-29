@@ -19,18 +19,10 @@ Ensure you have the above tools installed on your system before proceeding.
 First, clone the repository to your local machine and navigate to the correct directory:
 
 ```bash
-git clone https://github.com/yourusername/StarlinkTelemetryReport.git
+git clone git@github.com:lkartvedt/TelemetryReportQuestion.git
 cd StarlinkTelemetryReport
 ```
-For **macOS/Linux**, use the open command:
-```bash
-open StarlinkTelemetryReport.html
-```
-For **Windows**, use the start command:
-```bash
-start StarlinkTelemetryReport.html
-```
-Alternatively, manually open the StarlinkTelemetryReport.html file in your preferred web browser. 
+Open the StarlinkTelemetryReport.html file in your preferred web browser. 
 
 Next, navigate to the correct directory and start the API:
 ```bash
