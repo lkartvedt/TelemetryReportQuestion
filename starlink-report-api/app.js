@@ -6,7 +6,7 @@ const port = 3000;
 app.get('/getReport', (req, res) => {
   const { id } = req.query; // Get id from query parameters
 
-  exec(`python_script.py ${id}`, (error, stdout, stderr) => {
+  exec(`python3 generateReport.py ${id}`, (error, stdout, stderr) => {
     if (error) {
       console.error(`exec error: ${error}`);
       return res.status(500).send('Error executing Python script');
