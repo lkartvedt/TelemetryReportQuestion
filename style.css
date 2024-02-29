@@ -3,6 +3,11 @@ table, th, td { border: 1px solid black; border-collapse: collapse; }
 th, td { padding: 8px; text-align: left; }
 button { padding: 10px; font-size: 16px; cursor: pointer; }
 
+#dataTable th, #dataTable td {
+  width: 33.33%;
+  text-align: left; /* Adjust text alignment as needed */
+}
+
 #launchDates ul {
   width: 50%;
   list-style-type: none;
@@ -13,7 +18,12 @@ button { padding: 10px; font-size: 16px; cursor: pointer; }
   cursor: pointer;
   padding: 10px;
   margin: 5px 0;
-  background-color: #f0f0f0;
+  background-color: #f0f0f0; /* Default background color */
+  transition: background-color 0.3s; /* Smooth transition for the color change */
+}
+
+#launchDates li:hover {
+  background-color: #dbdbdb; /* Light gray background on hover */
 }
 
 #launchDates li.selected {
@@ -33,7 +43,6 @@ button { padding: 10px; font-size: 16px; cursor: pointer; }
 #runReportButton:hover {
   background-color: #0056b3;
 }
-
 
 #clearReportButton {
   border: none;
