@@ -1,0 +1,47 @@
+body { font-family: Arial, sans-serif; }
+table, th, td { border: 1px solid black; border-collapse: collapse; }
+th, td { padding: 8px; text-align: left; }
+button { padding: 10px; font-size: 16px; cursor: pointer; }
+
+#launchDates ul {
+  width: 50%;
+  list-style-type: none;
+  padding: 0;
+}
+
+#launchDates li {
+  cursor: pointer;
+  padding: 10px;
+  margin: 5px 0;
+  background-color: #f0f0f0;
+}
+
+#launchDates li.selected {
+  background-color: #007bff;
+  color: white;
+}
+
+#runReportButton {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 15px;
+  cursor: pointer; 
+}
+
+#runReportButton:hover {
+  background-color: #0056b3;
+}
+
+
+#clearReportButton {
+  border: none;
+  border-radius: 5px;
+  padding: 10px 15px;
+  cursor: pointer;
+}
+
+#clearReportButton:hover {
+  background-color: #dbdbdb;
+}
