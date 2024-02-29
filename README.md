@@ -53,6 +53,8 @@ With the API server running, you can return to the Starlink Telemetry Report web
 
 **Alerts:** You will see a browser alert if you attemt to run the report without a launch date selected or if the api isn't running.
 
+<img width="1440" alt="Screenshot 2024-02-29 at 1 22 14 AM" src="https://github.com/lkartvedt/TelemetryReportQuestion/assets/22900759/b9085a10-a1f0-45be-9916-e57c41dc22e5">
+
 ### Troubleshooting
 **API Not Responding:** Ensure the Node.js API server is running as described in the "Setting Up the API" section. If you encounter errors, check the terminal where node app.js was executed for error messages. You can also view logger information here even when the API is working. 
 
