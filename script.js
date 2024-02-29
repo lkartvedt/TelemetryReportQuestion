@@ -10,7 +10,6 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   });
 
-
 let selectedLaunchId = null; // To store the ID of the selected launch date
 
 function populateLaunchDates() {
@@ -21,7 +20,7 @@ function populateLaunchDates() {
       { id: '0001', date: '2024-03-11T17:24:00-08:00' },
       { id: '0004', date: '2023-10-18T06:07:20-08:00' },
       { id: '0005', date: '2023-09-03T13:12:59-08:00' }
-  ];
+  ]; // TODO: Test data. Change this to be real data from some other API
 
   // Sort the launchDates array by date in descending order (most recent first)
   launchDates.sort((a, b) => new Date(b.date) - new Date(a.date));
@@ -68,7 +67,6 @@ function formatDate(dateString) {
     return parts.join(' ');
 }
 
-
 function runReport() {
   if (!selectedLaunchId) {
     alert('Please select a launch date first.');
@@ -76,11 +74,19 @@ function runReport() {
   }
 
   fetch(`http://localhost:3000/getReport?id=${selectedLaunchId}`)
-    .then(response => response.json())
-    .then(data => {
-      updateTable(data); // Directly pass the data without wrapping it in an array
+    .then(response => {
+      if (!response.ok) { // Check if the response status is not OK (e.g., 404, 500)
+        throw new Error('Network response was not ok');
+      }
+      return response.json();
     })
-    .catch(error => console.error('Error:', error));
+    .then(data => {
+      updateTable(data);
+    })
+    .catch(error => {
+      console.error('Error:', error);
+      alert('Data unavailable: getReport API is disabled or experiencing issues.');
+    });
 }
 
 function clearReport() {

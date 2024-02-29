@@ -5,7 +5,7 @@ button { padding: 10px; font-size: 16px; cursor: pointer; }
 
 #dataTable th, #dataTable td {
   width: 33.33%;
-  text-align: left; /* Adjust text alignment as needed */
+  text-align: left;
 }
 
 #launchDates ul {
@@ -18,12 +18,12 @@ button { padding: 10px; font-size: 16px; cursor: pointer; }
   cursor: pointer;
   padding: 10px;
   margin: 5px 0;
-  background-color: #f0f0f0; /* Default background color */
-  transition: background-color 0.3s; /* Smooth transition for the color change */
+  background-color: #f0f0f0;
+  transition: background-color 0.3s;
 }
 
 #launchDates li:hover {
-  background-color: #dbdbdb; /* Light gray background on hover */
+  background-color: #dbdbdb;
 }
 
 #launchDates li.selected {
