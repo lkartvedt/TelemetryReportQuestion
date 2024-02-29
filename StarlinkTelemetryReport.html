@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Starlink Telemetry</title>
+    <style>
+      body { font-family: Arial, sans-serif; }
+      table, th, td { border: 1px solid black; border-collapse: collapse; }
+      th, td { padding: 8px; text-align: left; }
+      button { padding: 10px; font-size: 16px; cursor: pointer; }
+    </style>
+  </head>
+  <body>
+
+    <h2>Starlink Telemetry</h2>
+
+    <button onclick="runReport()">Run Report</button>
+
+    <div id="dataDisplay">
+      <table id="dataTable" style="width:100%; margin-top:20px;">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Data rows will be added here -->
+        </tbody>
+      </table>
+    </div>
+
+    <script>
+    function runReport() {
+      fetch('API_ENDPOINT')
+        .then(response => response.json())
+        .then(data => {
+          updateTable(data);
+        })
+        .catch(error => console.error('Error:', error));
+    }
+
+    function updateTable(data) {
+      const table = document.getElementById('dataTable').getElementsByTagName('tbody')[0];
+      table.innerHTML = ''; 
+
+      data.forEach(item => {
+        let row = table.insertRow();
+        let cell1 = row.insertCell(0);
+        let cell2 = row.insertCell(1);
+        let cell3 = row.insertCell(2);
+        // Populate cells
+        cell1.textContent = item.id;
+        cell2.textContent = item.name;
+        cell3.textContent = item.status;
+      });
+    }
+    </script>
+    
+  </body>
+</html>
